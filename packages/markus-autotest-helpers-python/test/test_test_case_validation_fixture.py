@@ -33,7 +33,7 @@ def correct_function(x: int) -> int:
 
 results = make_test_results_fixture(
     example_tests,
-    function_to_mock='example_tests.internal_buggy',
+    function_to_mock='fixtures.example_tests.internal_buggy',
     functions_to_use=[correct_function,
                         internal_buggy_original,
                         buggy_fails_0
