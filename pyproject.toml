@@ -1,0 +1,20 @@
+[project]
+name = "markus-autotest-helpers"
+version = "0.1.0"
+requires-python = ">=3.9"
+dependencies = [
+    "markus-autotest-helpers-c",
+    "markus-autotest-helpers-notebook",
+    "markus-autotest-helpers-python",
+    "markus-autotest-helpers-sql"
+]
+
+[tool.uv.sources]
+markus-autotest-helpers-c = { path = "packages/markus-autotest-helpers-c" }
+markus-autotest-helpers-notebook = { path = "packages/markus-autotest-helpers-notebook" }
+markus-autotest-helpers-python = { path = "packages/markus-autotest-helpers-python" }
+markus-autotest-helpers-sql = { path = "packages/markus-autotest-helpers-sql" }
+
+[build-system]
+requires = ["uv_build>=0.9.22,<0.10.0"]
+build-backend = "uv_build"
