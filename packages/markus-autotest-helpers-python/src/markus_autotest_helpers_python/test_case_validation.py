@@ -104,7 +104,7 @@ class _CaseWrapper:
                 replacement = module_to_use[i]
                 # Replace the module as needed
                 del sys.modules[replaced]
-                sys.modules[replaced] = __import__(replacement)
+                sys.modules[replaced] = __import__(replacement, fromlist=[None])
                 # Re-import the file containing the module, so it uses the
                 # replacement
                 module_imported = importlib.import_module(self._test_module)
@@ -123,7 +123,7 @@ class _CaseWrapper:
 
                 # Restore the original settings
                 del sys.modules[replaced]
-                sys.modules[replaced] = __import__(replaced)
+                sys.modules[replaced] = __import__(replaced, fromlist=[None])
 
                 module_imported = importlib.import_module(self._test_module)
                 importlib.reload(module_imported)
@@ -172,16 +172,16 @@ def get_test_cases(test_module: Union[ModuleType, Callable],
 
     if allow_pytest:
         pytest_output = StringIO()
-        module_path = test_module_name.replace(".", sep) + '.py'
+        module_path = test_module.__file__
 
         with redirect_stdout(pytest_output), \
                 redirect_stderr(pytest_output):
             pytest.main(['--collect-only', '-q',
                          module_path
                          ])
-
+        output = pytest_output.getvalue()
         test_cases = set(test_line
-                         for test_line in pytest_output.getvalue().split('\n')
+                         for test_line in output.split('\n')
                          if PYTEST_NAME_SEPARATOR in test_line)
 
         for test_name in test_cases:

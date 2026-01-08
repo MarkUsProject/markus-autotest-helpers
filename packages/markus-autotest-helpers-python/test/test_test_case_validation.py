@@ -146,9 +146,8 @@ class TestRunWithReplacements:
                                                  function_to_use=correct_function) == ''
 
     def test_replace_with_correct_external(self):
-        """Test that all tests pass when the buggy function is mocked and
-        replaced with a working (internal) version."""
-        from unittest.mock import patch
+        """Test that all tests pass when the external buggy module is mocked and
+        replaced with a working version."""
         import fixtures.example_tests as example_tests
         test_cases = get_test_cases(example_tests,
                                     allow_pytest=True,
@@ -161,8 +160,8 @@ class TestRunWithReplacements:
 
     def test_replace_both(self):
         """Test that all tests pass when the buggy function is mocked and
-        replaced with a working (internal) version."""
-        from unittest.mock import patch
+        replaced with a working (internal) version, and a module is mocked
+        and replaced."""
         import fixtures.example_tests as example_tests
         test_cases = get_test_cases(example_tests,
                                     allow_pytest=True,
